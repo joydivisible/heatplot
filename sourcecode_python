@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# generate 2 2d grids for the x & y bounds
+
+y, x = np.meshgrid(np.linspace(0, 5*10**(-25), 100), np.linspace(0, 5*10**(-9), 100))
+
+
+def z_collisionfactor (x, y):
+    return((((2.9929*10**(-20))+(1.73*10**(-10))*x+((1/4)*x**(2)))*((5.3136*10**(-26))+(y))**(1/2))/((((2.2685*10**(-23))+((1.3113*10**(-13))*x)+(1.8949*10**(-4)*x**(2)))*((5.3136*10**(-26)+y)**(1/2)))+(1.604*10**(-23)*((y)**(1/2)))+((4.9418*10**(-16))*x**(2))))
+
+z = z_collisionfactor (x, y)
+
+
+z = z[:356, :488]
+
+
+z_min, z_max = 356, 488
+
+
+fig, ax = plt.subplots()
+
+
+c = ax.pcolormesh(x, y, z, cmap='RdBu', vmin=z_min, vmax=z_max)
+ax.set_title('Probability of collision for unlike molecules')
+
+
+
+ax.set_xlim(left=0, right=3*10**(-9))
+
+ax.set_ylim(bottom=0, top=5*10**(-25))
+
+fig.colorbar(c, ax=ax)
+
+plt.show()
